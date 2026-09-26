@@ -1,0 +1,37 @@
+### Variables (extensión REST Client de VS Code)
+@api = http://localhost:3000
+
+### Catálogo
+GET {{api}}/api/misiones
+
+### Estudiantes con misiones
+GET {{api}}/api/estudiantes
+
+### Un estudiante
+GET {{api}}/api/estudiantes/1890-20-11489
+
+### Registro (primera vez → 201, siguientes → 200)
+POST {{api}}/api/registro
+Content-Type: application/json
+
+{
+  "maestro": {
+    "carnet": "1890-20-11489",
+    "nombre": "MERCEDES AZUCENA LÓPEZ PÉREZ",
+    "correo": "mlopezp58@miumg.edu.gt"
+  },
+  "detalle": [
+    { "misionId": 1, "estado": true },
+    { "misionId": 2, "estado": false },
+    { "misionId": 3, "estado": true }
+  ]
+}
+
+### Error de referencia (misión inexistente → 422, no se guarda nada)
+POST {{api}}/api/registro
+Content-Type: application/json
+
+{
+  "maestro": { "carnet": "1890-20-11489", "nombre": "MERCEDES AZUCENA LÓPEZ PÉREZ", "correo": "mlopezp58@miumg.edu.gt" },
+  "detalle": [ { "misionId": 1, "estado": true }, { "misionId": 9999, "estado": true } ]
+}
